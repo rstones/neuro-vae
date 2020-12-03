@@ -81,8 +81,8 @@ class ATLASDataModule(pl.LightningDataModule):
                                 ))
         val_sub_idxs = list(set(sub_idxs).difference(set(train_sub_idxs)))
 
-        self.train_dl = DataLoader2D(train_subjects, self.t1ws, self.batch_size)
-        self.val_dl = DataLoader2D(val_subjects, self.t1ws, self.batch_size)
+        self.train_dl = ATLASDataLoader(train_subjects, self.t1ws, self.batch_size)
+        self.val_dl = ATLASDataLoader(val_subjects, self.t1ws, self.batch_size)
 
     def train_dataloader(self):
         return MultiThreadedAugmenter(self.train_dl, self.transforms, num_processes=2, num_cached_per_queue=2, seeds=None, pin_memory=True)
